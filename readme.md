@@ -1,5 +1,5 @@
-# Laboration 4 - Grafiska effekter med CSS
+# Laboration 5 - Dynamiska webbplatser
 
-En laboration inom Grafiska effekter med CSS 
+En laboration Frontend-utveckling där man fortsätter arbetet från de tidigare laborationerna och påbygger hemsidan med diagram och en karta.
 
-Webbplats: https://lab4frontend-fb.netlify.app/
+Webbplats: https://lab5frontend-fb.netlify.app/
