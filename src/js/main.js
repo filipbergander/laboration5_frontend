@@ -3,8 +3,6 @@ import '/src/sass/main.scss';
 
 addEventListener("DOMContentLoaded", () => {
 
-    fetchStatistic();
-
     const btnDemo = document.getElementById("btn-demo"); // Knapp för att starta demonstration inom animeringar
     const loadingSpin = document.getElementById("load-spin"); // Laddikon
     const imageDisplay = document.getElementById("images-animations"); // Bilder inom animeringar
@@ -80,22 +78,5 @@ addEventListener("DOMContentLoaded", () => {
             btnRestartEl.classList.add("show");
             headlineEl.classList.add("unshow");
         });
-    }
-
-    /**
-     * Hämtar in data från externt API.
-     */
-    async function fetchStatistic() {
-        const url = "https://mallarmiun.github.io/Frontend-baserad-webbutveckling/Moment%205%20-%20Dynamiska%20webbplatser/statistik_sokande_ht25.json";
-        try {
-            const response = await fetch(url);
-            if (!response.ok) {
-                throw new Error(`Status på respons: ${response.status}`);
-            }
-            const result = await response.json();
-            console.log(result);
-        } catch (error) {
-            console.error(error.message);
-        }
     }
 });

@@ -28,9 +28,18 @@
     </header>
     <main>
         <h1>Karta</h1>
+        <div>
+            <label for="search">Sök på kartan</label>
+            <input type="text" id="search" placeholder="Sök efter en plats">
+            <button id="searchBtn">Sök</button>
+        </div>
+        <div id="map">
+            <iframe width="425" height="350" src="https://www.openstreetmap.org/export/embed.html" style="border: 1px solid rgb(221, 14, 14)"></iframe><br/><small><a href="https://www.openstreetmap.org/">Visa större karta</a></small>
+        </div>
     </main>
     <footer> Frontend-baserad Webbutveckling | Filip Bergander 2026</footer>
     <script type="module" src="/src/js/main.js"></script>
+    <script type="module" src="/src/js/map.js"></script>
 </body>
 
 </html>

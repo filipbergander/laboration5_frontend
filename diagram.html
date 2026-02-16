@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Laboration 5 Frontend</title>
     <link rel="stylesheet" href="./src/sass/main.scss">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 
 <body>
@@ -28,9 +29,22 @@
     </header>
     <main>
         <h1>Diagram</h1>
+        <article>
+            <h2>Stapeldiagram</h2>
+            <div>
+                <canvas id="myChart" width="600" height="300"></canvas>
+            </div>
+        </article>
+        <article>
+            <h2>Cirkeldiagram</h2>
+            <div>
+                <canvas id="circle-students"></canvas>
+            </div>
+        </article>
     </main>
     <footer> Frontend-baserad Webbutveckling | Filip Bergander 2026</footer>
     <script type="module" src="/src/js/main.js"></script>
+    <script type="module" src="/src/js/chart.js"></script>
 </body>
 
 </html>
