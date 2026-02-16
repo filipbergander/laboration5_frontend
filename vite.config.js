@@ -3,6 +3,9 @@ import { resolve } from "path";
 import { ViteImageOptimizer } from "vite-plugin-image-optimizer";
 
 export default defineConfig({
+    server: {
+        open: true
+    },
     css: { // För att kunna granska scss-filerna inom granska-läget i webbläsaren
         devSourcemap: true
     },
