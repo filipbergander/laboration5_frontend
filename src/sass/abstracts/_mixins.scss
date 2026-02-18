@@ -83,6 +83,14 @@
     @include thumbs;
 }
 
+.searchBtn {
+    @include btn($complement-color, $light-color);
+    &:hover {
+        background-color: $light-color;
+        color: $dark-color;
+    }
+}
+
 @media (prefers-color-scheme: dark) {
     body {
         background-color: $primary-color;
