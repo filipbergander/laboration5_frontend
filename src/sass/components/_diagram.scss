@@ -1,15 +1,28 @@
-@use "../abstracts/variables" as *; // Lagt till as * För att slippa skriva variables innan.
-
-/*.staple {
-    position: relative;
-    width: 50%;
-    max-width: 300px;
-    height: 500px;
+%diagram-layout {
+    width: 100%;
+    max-width: 700px;
+    min-height: 400px;
     margin: 0 auto;
 }
 
-.circle {
-    position: relative;
-    width: 50%;
-    max-width: 400px;
-}*/
+.diagrams {
+    .staple {
+        @extend %diagram-layout;
+    }
+    .circle {
+        @extend %diagram-layout;
+    }
+}
+
+@media (max-width: 768px) {
+    .diagrams {
+        .staple {
+            width: 95%;
+            height: 200px;
+        }
+        .circle {
+            width: 95%;
+            height: 200px;
+        }
+    }
+}

@@ -1,4 +1,5 @@
   "use strict";
+  import { plugins } from 'chart.js';
   import '/src/sass/main.scss';
 
   addEventListener("DOMContentLoaded", async() => {
@@ -6,7 +7,8 @@
 
   });
   /**
-   * Hämtar in data från externt API.
+   * Hämtar in data från externt API och skickar resultatet till funktionen showDiagram
+   * @async 
    */
   async function fetchStatistic() {
       const url = "https://mallarmiun.github.io/Frontend-baserad-webbutveckling/Moment%205%20-%20Dynamiska%20webbplatser/statistik_sokande_ht25.json";
@@ -24,9 +26,13 @@
   }
 
   /**
-   * Tar emot data från API:et för antal sökande och skapar ett stapeldiagram och cirkeldiagram utifrån datan
-   * @param {array} result 
-   */
+   * Tar emot data från API:et för antal sökande och skapar 
+   * ett stapeldiagram och cirkeldiagram utifrån datan
+   * 
+   * @property {string} type - Definierar vilken typ: Kurs eller program
+   * @property {string} name - Namn på kursen eller programmet
+   * @property {number} applicantsTotal - Antal sökande
+   * @param {array} result - Result: arrayens längd med objekt som visar på statistik för sökande hos MIUN   */
   function showDiagram(result) {
 
       const filterCourse = result.filter(item => item.type === "Kurs");
@@ -46,12 +52,43 @@
               labels: labels,
               datasets: [{
                   label: 'Antal sökande på kurs',
-                  data: applicants
+                  data: applicants,
+                  backgroundColor: ["#33CCCC", /* Olika färger på staplarna */
+                      "#0854e2",
+                      "#eeb006",
+                      "#ff00bf",
+                      "#00ff00",
+                      "#c23c3c"
+                  ],
+                  hoverBackgroundColor: "#fff"
               }]
           },
-          options: { /* För att göra diagrammet responsivt och att det skalas ned */
+          options: { /* För att styla och göra diagrammet responsivt och att det skalas ned */
               responsive: true,
-              maintainAspectRatio: false
+              maintainAspectRatio: false,
+              plugins: {
+                  legend: {
+                      labels: {
+                          font: {
+                              size: 16
+                          }
+                      }
+                  }
+              },
+              scales: {
+                  x: {
+                      ticks: {
+                          maxRotation: 20,
+                          minRotation: 20,
+                          autoSkip: false,
+                          padding: 0,
+                          font: {
+                              size: 10
+                          }
+                      }
+                  }
+              }
+
           }
       });
 
@@ -70,12 +107,25 @@
               labels: labelsCircle,
               datasets: [{
                   label: 'Antal sökande på programmet',
-                  data: applicantsCircle
+                  data: applicantsCircle,
+                  hoverBackgroundColor: "#fff"
               }]
           },
           options: { /* För att göra diagrammet responsivt och att det skalas ned */
               responsive: true,
-              maintainAspectRatio: false
+              maintainAspectRatio: false,
+              layout: {
+                  padding: 1
+              },
+              plugins: {
+                  legend: {
+                      labels: {
+                          font: {
+                              size: 16
+                          }
+                      }
+                  }
+              }
           }
       });
   }
