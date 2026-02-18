@@ -1,11 +1,13 @@
 "use strict";
 import '/src/sass/main.scss';
-addEventListener("DOMContentLoaded", () => {
 
-    const searchInputEl = document.getElementById("search");
+addEventListener("DOMContentLoaded", async() => {
+
     const searchBtnEl = document.getElementById("searchBtn");
     searchBtnEl.addEventListener("click", () => {
-        searchAdress(searchInputEl.value.trim());
+        const searchInput = document.getElementById("searchInput").value;
+        if (!searchInput) return;
+        searchAdress(searchInput);
     });
 });
 
@@ -14,8 +16,8 @@ addEventListener("DOMContentLoaded", () => {
  * Söker på longitud och latitud beroende på sökinnehåll
  * @param {string} search - Sökinnehåll 
  */
-async function searchAdress(search) {
-    const url = `https://nominatim.openstreetmap.org/search?q=${search}&format=json&limit=1`;
+async function searchAdress(searchInput) {
+    const url = `https://nominatim.openstreetmap.org/search?q=${searchInput}&format=json`;
     try {
         const response = await fetch(url, {
             headers: {
@@ -26,22 +28,23 @@ async function searchAdress(search) {
             throw new Error(`Status på respons: ${response.status}`);
         }
         const data = await response.json();
-
-
+        console.log(data);
         const latitude = data[0].lat;
         const longitude = data[0].lon;
         console.log(`${latitude}, ${longitude}`);
+        showPoint(latitude, longitude)
     } catch (error) {
         console.error(error.message);
     }
 }
-
+/**
+ * 
+ * @param {*} latitude 
+ * @param {*} longitude 
+ */
 function showPoint(latitude, longitude) {
-    const mapContainer = document.getElementById("map");
-    mapContainer.innerHTML =
-        `<iframe
-width="425"
-height="350"
-src=""
-    </iframe>`
+    const frameEl = document.getElementById("frame");
+    console.log(frameEl)
+    frameEl.src =
+        `https://www.openstreetmap.org/export/embed.html?layer=mapnik&marker=${latitude},${longitude}&zoom=${15}`;
 }
