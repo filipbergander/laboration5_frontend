@@ -6,7 +6,7 @@ addEventListener("DOMContentLoaded", async() => {
     const searchBtnEl = document.getElementById("searchBtn");
     searchBtnEl.addEventListener("click", () => {
         const searchInput = document.getElementById("searchInput").value;
-        if (!searchInput) return;
+        if (!searchInput.trim()) return;
         searchAdress(searchInput);
     });
 });
@@ -31,6 +31,8 @@ async function searchAdress(searchInput) {
         console.log(data);
         const latitude = data[0].lat;
         const longitude = data[0].lon;
+        const bbox = data[0].boundingbox;
+        console.log(bbox);
         console.log(`${latitude}, ${longitude}`);
         showPoint(latitude, longitude)
     } catch (error) {
