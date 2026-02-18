@@ -32,9 +32,13 @@ async function searchAdress(searchInput) {
         const latitude = data[0].lat;
         const longitude = data[0].lon;
         const bbox = data[0].boundingbox;
-        console.log(bbox);
-        console.log(`${latitude}, ${longitude}`);
-        showPoint(latitude, longitude)
+
+        const minLon = bbox[0];
+        const minLat = bbox[1];
+        const maxLon = bbox[2];
+        const maxLat = bbox[3];
+        console.log(latitude, longitude, minLon, minLat, maxLon, maxLat);
+        showPoint(latitude, longitude, minLon, minLat, maxLon, maxLat)
     } catch (error) {
         console.error(error.message);
     }
