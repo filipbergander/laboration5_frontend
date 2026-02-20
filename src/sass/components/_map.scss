@@ -1,13 +1,22 @@
     @use "../abstracts/variables" as *; // Lagt till as * För att slippa skriva variables innan.
     main {
+        .search {
+            display: flex;
+            flex-direction: column;
+        }
         .search-area {
-            margin: 2rem 0 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 2rem 0;
         }
         .searchInput {
+            width: 100%;
             height: 25px;
             border-radius: 8px;
             border: 2px solid $forest-color;
             font-weight: bold;
+            margin: 0 auto;
         }
         .map-area {
             margin-top: 2rem;
@@ -16,6 +25,7 @@
             margin: 0 auto;
         }
         .frame {
+            margin-top: 1rem;
             border-radius: 8px;
             border: 2px solid $light-color;
         }

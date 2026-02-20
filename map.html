@@ -32,10 +32,12 @@
     <main>
         <h1>Karta</h1>
         <div class="search-area">
-            <label for="search">Sök på kartan: </label>
-            <input type="text" id="searchInput" class="searchInput" placeholder="Sök efter en plats">
-            <button id="searchBtn" class="searchBtn">Sök</button>
+            <div class="search">
+                <label for="searchInput">Sök plats i världen </label>
+                <input type="text" id="searchInput" class="searchInput" placeholder="Sök...">
+            </div>
         </div>
+        <button id="searchBtn" class="searchBtn">Sök</button>
         <div class="map-area">
             <iframe width="525" height="350" id="frame" class="frame" title="Karta som visar en markör på vald plats" src="https://www.openstreetmap.org/export/embed.html?bbox=-65.30296015933972%2C26.9026446774038%2C80.77125859066031%2C71.3290104122609&amp;layer=mapnik"></iframe><br>
         </div>

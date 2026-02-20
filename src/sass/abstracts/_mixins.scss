@@ -84,7 +84,9 @@
 }
 
 .searchBtn {
-    @include btn($complement-color, $light-color);
+    @include btn($btn-color, $dark-color);
+    width: 30%;
+    padding: 8px 0;
     &:hover {
         background-color: $light-color;
         color: $dark-color;
