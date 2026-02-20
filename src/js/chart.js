@@ -1,14 +1,18 @@
   "use strict";
   import { plugins } from 'chart.js';
   import '/src/sass/main.scss';
+  /* Generera dokumentation npx jsdoc -r . -d docs */
 
+
+  // Väntar tills DOM har laddat färdigt sedan anropas funktionen för att hämta in statistik
   addEventListener("DOMContentLoaded", async() => {
       fetchStatistic();
 
   });
   /**
-   * Hämtar in data från externt API och skickar resultatet till funktionen showDiagram
-   * @async 
+   * Hämtar in statistik över antal sökande för program och kurser på MIUN HT25 från externt API,
+   * datan skickas sedan över till funktionen showDiagram.
+   * @async
    */
   async function fetchStatistic() {
       const url = "https://mallarmiun.github.io/Frontend-baserad-webbutveckling/Moment%205%20-%20Dynamiska%20webbplatser/statistik_sokande_ht25.json";
@@ -26,24 +30,25 @@
   }
 
   /**
-   * Tar emot data från API:et för antal sökande och skapar 
-   * ett stapeldiagram och cirkeldiagram utifrån datan
-   * 
-   * @property {string} type - Definierar vilken typ: Kurs eller program
+   * Tar emot data som statistik från funktionen fetchStatistic och skapar
+   * ett stapeldiagram och cirkeldiagram utifrån antal sökande
+   * @property {string} type - Definierar vilken typ studier: Kurs eller program
    * @property {string} name - Namn på kursen eller programmet
-   * @property {number} applicantsTotal - Antal sökande
-   * @param {array} result - Result: arrayens längd med objekt som visar på statistik för sökande hos MIUN   */
+   * @property {number} applicantsTotal - Antal sökande totalt för kursen eller programmet   
+   * 
+   * @param {Array} result - En array av objekt som innehåller information om kurser och program
+   */
   function showDiagram(result) {
 
-      const filterCourse = result.filter(item => item.type === "Kurs");
+      const filterCourse = result.filter(study => study.type === "Kurs"); // Filtrerar efter kurs
 
-      const sortedData = [...filterCourse].sort((a, b) => b.applicantsTotal - a.applicantsTotal);
+      const sortedData = [...filterCourse].sort((a, b) => b.applicantsTotal - a.applicantsTotal); // Sorterar på högst -> lägst antal sökande
 
-      const topSix = sortedData.slice(0, 6);
+      const topSix = sortedData.slice(0, 6); // Plockar ut de 6 kurserna med flest sökande
 
-      const labels = topSix.map(item => item.name);
+      const labels = topSix.map(study => study.name); // Skapar ny array med kursernas namn
 
-      const applicants = topSix.map(item => item.applicantsTotal);
+      const applicants = topSix.map(study => study.applicantsTotal); // Antal sökanden
 
       const ctx = document.getElementById("myChart");
       new Chart(ctx, {
@@ -92,17 +97,17 @@
           }
       });
 
-      const filterProgram = result.filter(item => item.type === "Program");
-      const sortedProgram = [...filterProgram].sort((a, b) => b.applicantsTotal - a.applicantsTotal);
+      const filterProgram = result.filter(study => study.type === "Program"); // Filtrerar efter program
+      const sortedProgram = [...filterProgram].sort((a, b) => b.applicantsTotal - a.applicantsTotal); // Sorterar på högst -> lägst antal sökande
 
-      const topFive = sortedProgram.slice(0, 5);
+      const topFive = sortedProgram.slice(0, 5); // Plockar ut de 5 programmen med flest antal sökande
 
-      const labelsCircle = topFive.map(item => item.name);
-      const applicantsCircle = topFive.map(item => item.applicantsTotal);
+      const labelsCircle = topFive.map(study => study.name); // Programmens namn
+      const applicantsCircle = topFive.map(study => study.applicantsTotal); // Sökanden i de 5 programmen
       const circleDiagram = document.getElementById("circle-students");
 
       new Chart(circleDiagram, {
-          type: 'doughnut',
+          type: 'pie',
           data: {
               labels: labelsCircle,
               datasets: [{

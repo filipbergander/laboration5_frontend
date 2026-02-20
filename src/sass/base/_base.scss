@@ -17,3 +17,19 @@
 #girona-pic.unshow {
     display: none;
 }
+
+.documentation {
+    margin-top: 2rem;
+    .jsdoc {
+        @include btn($forest-color, $light-color);
+        transition: .3s ease-in-out;
+        margin-top: 1rem;
+        border: 1px solid $dark-color;
+        letter-spacing: 1px;
+        text-decoration: none;
+        &:hover {
+            background-color: $light-color;
+            color: $dark-color;
+        }
+    }
+}

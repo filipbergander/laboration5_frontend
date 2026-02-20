@@ -1,10 +1,11 @@
 "use strict";
 import '/src/sass/main.scss';
 
-addEventListener("DOMContentLoaded", async() => {
 
+// När DOM har laddats färdigt kan funktionen för att hämta koordinater anropas
+addEventListener("DOMContentLoaded", async() => {
     const searchBtnEl = document.getElementById("searchBtn");
-    searchBtnEl.addEventListener("click", () => {
+    searchBtnEl.addEventListener("click", () => { // Om man klickar på knappen
         const searchInput = document.getElementById("searchInput").value;
         if (!searchInput.trim()) return;
         searchAdress(searchInput);
@@ -13,8 +14,10 @@ addEventListener("DOMContentLoaded", async() => {
 
 
 /**
- * Söker på longitud och latitud beroende på sökinnehåll
- * @param {string} searchInput - Textfältets sökinnehåll
+ * Söker på koordinater som longitud och latitud beroende på sökinnehåll som användaren skrivit i sökfältet
+ * genom API:et Nominatim. Datan skickas sedan vidare till funktionen showPoint. 
+ * @param {string} searchInput - Sökinnehåll som användaren anger i sökfältet
+ * @async
  */
 async function searchAdress(searchInput) {
     const url = `https://nominatim.openstreetmap.org/search?q=${searchInput}&format=json`;
@@ -42,12 +45,12 @@ async function searchAdress(searchInput) {
 }
 /**
  * Genererar en markör på en inbäddad karta från OpenStreetMap beroende på sökinput och platsens longitud och latitud
- * @param {number} latitude - Latitud för markören
- * @param {number} longitude - Longitud för markören
- * @param {number} minLon - Minsta longitud för platsen
- * @param {number} minLat - Minsta latitud för platsen
- * @param {number} maxLon - Största longitud för platsen
- * @param {number} maxLat - Största latitud för platsen
+ * @param {string} latitude - Latitud för markören
+ * @param {string} longitude - Longitud för markören
+ * @param {string} minLon - Minsta longitud för platsen
+ * @param {string} minLat - Minsta latitud för platsen
+ * @param {string} maxLon - Största longitud för platsen
+ * @param {string} maxLat - Största latitud för platsen
  */
 function showPoint(latitude, longitude, minLon, minLat, maxLon, maxLat) {
     const frameEl = document.getElementById("frame");

@@ -1,10 +1,28 @@
-main {
-    .search-area {
-        margin: 2rem 0 0.5rem;
+    @use "../abstracts/variables" as *; // Lagt till as * För att slippa skriva variables innan.
+    main {
+        .search-area {
+            margin: 2rem 0 0.5rem;
+        }
+        .searchInput {
+            height: 25px;
+            border-radius: 8px;
+            border: 2px solid $forest-color;
+            font-weight: bold;
+        }
+        .map-area {
+            margin-top: 2rem;
+            width: 100%;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        .frame {
+            border-radius: 8px;
+            border: 2px solid $light-color;
+        }
     }
-    .map-area {
-        margin-top: 2rem;
-        width: 100%;
-        margin: 0 auto;
+    
+    @media (max-width: 550px) {
+        .frame {
+            width: 95%;
+        }
     }
-}
