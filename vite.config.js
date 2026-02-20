@@ -16,8 +16,7 @@ export default defineConfig({
                 sass: resolve(__dirname, "sass.html"),
                 animation: resolve(__dirname, "animation.html"),
                 diagram: resolve(__dirname, "diagram.html"),
-                map: resolve(__dirname, "map.html"),
-                docs: resolve(__dirname, "public/docs/index.html")
+                map: resolve(__dirname, "map.html")
             }
         }
     },
