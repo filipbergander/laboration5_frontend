@@ -31,6 +31,12 @@
         }
     }
     
+    #map {
+        height: 400px;
+        width: 550px;
+        margin-top: 1rem;
+    }
+    
     @media (max-width: 550px) {
         .frame {
             width: 95%;
