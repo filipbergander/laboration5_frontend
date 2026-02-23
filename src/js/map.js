@@ -44,12 +44,14 @@ async function searchAdress(searchInput) {
         });
         const data = await response.json();
         console.log(data);
+        errorContainer.innerHTML = "";
         const latitude = data[0].lat;
         const longitude = data[0].lon;
         console.log(latitude, longitude);
         addMarker(latitude, longitude, searchInput);
     } catch (error) {
         console.error("Felmeddelanden: ", error);
+        showErrorMsg(error);
     }
 }
 /**
@@ -65,12 +67,22 @@ function addMarker(latitude, longitude, searchInput) {
     map.setView([latitude, longitude], 12);
     marker = L.marker([latitude, longitude]).addTo(map);
 
-    localStorage.setItem("latitude", latitude);
-    localStorage.setItem("longitude", longitude);
+    /*localStorage.setItem("latitude", latitude);
+    localStorage.setItem("longitude", longitude);*/
     const searchToUppercase = searchInput.charAt(0).toUpperCase() + searchInput.slice(1).toLowerCase();
     searchPlaceContainer.innerHTML =
         `   <p> Plats du sökte på: <span id="place">${searchToUppercase}</span></p>
             <p> Latitude: <span id="lat">${latitude}</span></p>
             <p> Longitude: <span id="lon">${longitude}</span></p>
         `
+}
+
+/**
+ * Visar ett felmeddelande inom DOM på sidan Karta om det inte går att hämta platsinformation, t.ex om API:et genererar ett fel.
+ */
+function showErrorMsg() {
+    const errorContainer = document.getElementById("errorMsg");
+    if (errorContainer) {
+        errorContainer.innerHTML = "Kunde inte hämta platsinformation, försök igen senare";
+    }
 }

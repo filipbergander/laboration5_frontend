@@ -239,6 +239,13 @@
             margin-top: 2rem;
         }
         
+        #errorMsg {
+            margin-top: 1rem;
+            color: $icons-red;
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+        
         @media (max-width:950px) {
             .image-area {
                 grid-template-columns: 1fr;
