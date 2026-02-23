@@ -10,6 +10,7 @@ import '/src/sass/main.scss';
 let map;
 let marker;
 const searchPlaceContainer = document.querySelector(".searchPlace");
+const errorContainer = document.getElementById("errorMsg");
 
 
 // När DOM har laddats färdigt kan funktionen för att hämta koordinater anropas
@@ -81,7 +82,6 @@ function addMarker(latitude, longitude, searchInput) {
  * Visar ett felmeddelande inom DOM på sidan Karta om det inte går att hämta platsinformation, t.ex om API:et genererar ett fel.
  */
 function showErrorMsg() {
-    const errorContainer = document.getElementById("errorMsg");
     if (errorContainer) {
         errorContainer.innerHTML = "Kunde inte hämta platsinformation, försök igen senare";
     }
