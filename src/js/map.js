@@ -1,6 +1,12 @@
+/**
+ * @file
+ * Det har även infogats en karta och sökfält för att skriva in en plats som sedan genererar en markör på kartan.
+ */
+
 "use strict";
 import '/src/sass/main.scss';
 
+// Sparar variablerna globalt
 let map;
 let marker;
 const searchPlaceContainer = document.querySelector(".searchPlace");
@@ -22,7 +28,12 @@ addEventListener("DOMContentLoaded", async() => {
         searchAdress(searchInput);
     });
 });
-
+/**
+ * Söker på koordinater som longitud och latitud beroende på sökinnehåll som användaren skrivit i sökfältet
+ * genom API:et Nominatim. Datan skickas sedan vidare till funktionen showPoint. 
+ * @param {string} searchInput - Sökinnehåll som användaren anger i sökfältet
+ * @async
+ */
 async function searchAdress(searchInput) {
     const url = `https://nominatim.openstreetmap.org/search?q=${searchInput}&format=json`;
     try {
@@ -41,7 +52,12 @@ async function searchAdress(searchInput) {
         console.error("Felmeddelanden: ", error);
     }
 }
-
+/**
+ * Genererar en markör på en inbäddad karta från OpenStreetMap, beroende på koordinater för platsen som söktes på
+ * @param {string} latitude - Latitud för markören
+ * @param {string} longitude - Longitud för markören
+ * @param {string} searchInput - Sökinnehåll som användaren anger i sökfältet
+ */
 function addMarker(latitude, longitude, searchInput) {
     if (marker) {
         map.removeLayer(marker);
@@ -51,9 +67,9 @@ function addMarker(latitude, longitude, searchInput) {
 
     localStorage.setItem("latitude", latitude);
     localStorage.setItem("longitude", longitude);
-    const letterUppercase = searchInput.charAt(0).toUpperCase() + searchInput.slice(1).toLowerCase();
+    const searchToUppercase = searchInput.charAt(0).toUpperCase() + searchInput.slice(1).toLowerCase();
     searchPlaceContainer.innerHTML =
-        `   <p> Plats du sökte på: <span id="place">${letterUppercase}</span></p>
+        `   <p> Plats du sökte på: <span id="place">${searchToUppercase}</span></p>
             <p> Latitude: <span id="lat">${latitude}</span></p>
             <p> Longitude: <span id="lon">${longitude}</span></p>
         `

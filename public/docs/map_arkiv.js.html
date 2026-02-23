@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: map.js</title>
+    <title>JSDoc: Source: map_arkiv.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Source: map.js</h1>
+    <h1 class="page-title">Source: map_arkiv.js</h1>
 
     
 
@@ -27,35 +27,24 @@
     <section>
         <article>
             <pre class="prettyprint source linenums"><code>/**
- * @file
- * Det har även infogats en karta och sökfält för att skriva in en plats som sedan genererar en markör på kartan.
+ * @ignore
  */
 
 "use strict";
 import '/src/sass/main.scss';
 
-// Sparar variablerna globalt
-let map;
-let marker;
-const searchPlaceContainer = document.querySelector(".searchPlace");
-
 
 // När DOM har laddats färdigt kan funktionen för att hämta koordinater anropas
 addEventListener("DOMContentLoaded", async() => {
-    map = L.map('map').setView([54.50, 14.68], 4);
     const searchBtnEl = document.getElementById("searchBtn");
-
-    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        maxZoom: 19,
-        attribution: '&amp;copy; &lt;a href="http://www.openstreetmap.org/copyright">OpenStreetMap&lt;/a>'
-    }).addTo(map);
-
     searchBtnEl.addEventListener("click", () => { // Om man klickar på knappen
         const searchInput = document.getElementById("searchInput").value;
         if (!searchInput.trim()) return;
         searchAdress(searchInput);
     });
 });
+
+
 /**
  * Söker på koordinater som longitud och latitud beroende på sökinnehåll som användaren skrivit i sökfältet
  * genom API:et Nominatim. Datan skickas sedan vidare till funktionen showPoint. 
@@ -74,33 +63,31 @@ async function searchAdress(searchInput) {
         console.log(data);
         const latitude = data[0].lat;
         const longitude = data[0].lon;
-        console.log(latitude, longitude);
-        addMarker(latitude, longitude, searchInput);
+        const bbox = data[0].boundingbox;
+
+        const minLon = bbox[0];
+        const minLat = bbox[1];
+        const maxLon = bbox[2];
+        const maxLat = bbox[3];
+        console.log(latitude, longitude, minLon, minLat, maxLon, maxLat);
+        showPoint(latitude, longitude, minLon, minLat, maxLon, maxLat);
     } catch (error) {
         console.error("Felmeddelanden: ", error);
     }
 }
 /**
- * Genererar en markör på en inbäddad karta från OpenStreetMap, beroende på koordinater för platsen som söktes på
+ * Genererar en markör på en inbäddad karta från OpenStreetMap beroende på sökinput och platsens longitud och latitud
  * @param {string} latitude - Latitud för markören
  * @param {string} longitude - Longitud för markören
- * @param {string} searchInput - Sökinnehåll som användaren anger i sökfältet
+ * @param {string} minLon - Minsta longitud för platsen
+ * @param {string} minLat - Minsta latitud för platsen
+ * @param {string} maxLon - Största longitud för platsen
+ * @param {string} maxLat - Största latitud för platsen
  */
-function addMarker(latitude, longitude, searchInput) {
-    if (marker) {
-        map.removeLayer(marker);
-    }
-    map.setView([latitude, longitude], 12);
-    marker = L.marker([latitude, longitude]).addTo(map);
-
-    localStorage.setItem("latitude", latitude);
-    localStorage.setItem("longitude", longitude);
-    const searchToUppercase = searchInput.charAt(0).toUpperCase() + searchInput.slice(1).toLowerCase();
-    searchPlaceContainer.innerHTML =
-        `   &lt;p> Plats du sökte på: &lt;span id="place">${searchToUppercase}&lt;/span>&lt;/p>
-            &lt;p> Latitude: &lt;span id="lat">${latitude}&lt;/span>&lt;/p>
-            &lt;p> Longitude: &lt;span id="lon">${longitude}&lt;/span>&lt;/p>
-        `
+function showPoint(latitude, longitude, minLon, minLat, maxLon, maxLat) {
+    const frameEl = document.getElementById("frame");
+    frameEl.src =
+        `https://www.openstreetmap.org/export/embed.html?bbox=${minLon},${minLat},${maxLon},${maxLat}&amp;layer=mapnik&amp;marker=${latitude},${longitude}`;
 }</code></pre>
         </article>
     </section>
@@ -111,13 +98,13 @@ function addMarker(latitude, longitude, searchInput) {
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#addMarker">addMarker</a></li><li><a href="global.html#fetchStatistic">fetchStatistic</a></li><li><a href="global.html#searchAdress">searchAdress</a></li><li><a href="global.html#showDiagram">showDiagram</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#addMarker">addMarker</a></li><li><a href="global.html#fetchStatistic">fetchStatistic</a></li><li><a href="global.html#searchAdress">searchAdress</a></li><li><a href="global.html#showDiagram">showDiagram</a></li><li><a href="global.html#showPoint">showPoint</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.5</a> on Mon Feb 23 2026 09:42:55 GMT+0100 (centraleuropeisk normaltid)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.5</a> on Mon Feb 23 2026 09:25:48 GMT+0100 (centraleuropeisk normaltid)
 </footer>
 
 <script> prettyPrint(); </script>

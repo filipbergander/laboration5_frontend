@@ -18,17 +18,19 @@
             font-weight: bold;
             margin: 0 auto;
         }
-        .map-area {
-            margin-top: 2rem;
-            width: 100%;
-            max-width: 1000px;
-            margin: 0 auto;
-        }
-        .frame {
-            margin-top: 1rem;
-            border-radius: 8px;
-            border: 2px solid $light-color;
-        }
+    }
+    
+    .map-area {
+        margin-top: 2rem;
+        width: 100%;
+        max-width: 1000px;
+        margin: 0 auto;
+    }
+    
+    .frame {
+        margin-top: 1rem;
+        border-radius: 8px;
+        border: 2px solid $light-color;
     }
     
     #map {

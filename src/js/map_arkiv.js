@@ -1,6 +1,11 @@
+/**
+ * @ignore
+ */
+
 "use strict";
 import '/src/sass/main.scss';
 
+/* Generera dokumentation, kommandot: npx jsdoc -r . -d docs */
 
 // När DOM har laddats färdigt kan funktionen för att hämta koordinater anropas
 addEventListener("DOMContentLoaded", async() => {
@@ -12,8 +17,11 @@ addEventListener("DOMContentLoaded", async() => {
     });
 });
 
-
 /**
+ * @ignore
+ */
+
+/*
  * Söker på koordinater som longitud och latitud beroende på sökinnehåll som användaren skrivit i sökfältet
  * genom API:et Nominatim. Datan skickas sedan vidare till funktionen showPoint. 
  * @param {string} searchInput - Sökinnehåll som användaren anger i sökfältet
@@ -44,6 +52,10 @@ async function searchAdress(searchInput) {
     }
 }
 /**
+ * @ignore
+ */
+
+/*
  * Genererar en markör på en inbäddad karta från OpenStreetMap beroende på sökinput och platsens longitud och latitud
  * @param {string} latitude - Latitud för markören
  * @param {string} longitude - Longitud för markören

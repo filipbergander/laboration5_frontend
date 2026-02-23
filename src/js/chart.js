@@ -1,7 +1,13 @@
+  /**
+   * @file Laboration 5 – Frontend baserad Webbutveckling
+   * 
+   * Denna applikation hämtar statistik över kurser och program på MIUN.
+   * Projektet är byggt med Vite och dokumenterat med JSDoc.
+   */
+
   "use strict";
   import { plugins } from 'chart.js';
   import '/src/sass/main.scss';
-  /* Generera dokumentation npx jsdoc -r . -d docs */
 
 
   // Väntar tills DOM har laddat färdigt sedan anropas funktionen för att hämta in statistik
