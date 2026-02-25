@@ -8,6 +8,7 @@
   "use strict";
   import { plugins } from 'chart.js';
   import '/src/sass/main.scss';
+  import { callback } from 'chart.js/helpers';
 
 
   // Väntar tills DOM har laddat färdigt sedan anropas funktionen för att hämta in statistik
@@ -81,20 +82,43 @@
                   legend: {
                       labels: {
                           font: {
-                              size: 16
+                              size: 14
                           }
                       }
                   }
               },
               scales: {
+                  y: {
+                      beginAtZero: true
+                  },
                   x: {
                       ticks: {
-                          maxRotation: 20,
-                          minRotation: 20,
+                          maxRotation: 30,
+                          minRotation: 30,
                           autoSkip: false,
                           padding: 0,
-                          font: {
-                              size: 10
+                          font: (ctx) => { // Fontstorlek skiljer sig på labels vid olika bredder på diagrammet, vilket beror på skärmstorleken som används
+                              const width = ctx.chart.width;
+                              if (width < 400) return { size: 8 };
+                              return { size: 12 }
+                          }, // Funktion för att göra bindestreck på labels som är längre än 17 bokstäver
+                          callback: function(index) {
+                              const label = this.getLabelForValue(index);
+                              const maxLength = 31;
+
+                              if (label.length > maxLength) {
+                                  return label.match(/.{1,31}/g).map((segment, i, arr) => {
+                                      if (
+                                          i < arr.length - 1 &&
+                                          !segment.endsWith(' ') &&
+                                          !arr[i + 1].startsWith(' ')
+                                      ) {
+                                          return segment.trimEnd() + '-';
+                                      }
+                                      return segment.trim();
+                                  });
+                              }
+                              return label;
                           }
                       }
                   }
@@ -131,9 +155,11 @@
               plugins: {
                   legend: {
                       labels: {
-                          font: {
-                              size: 16
-                          }
+                          font: (ctx) => { // Fontstorlek skiljer sig på labels vid olika bredder på diagrammet, vilket beror på skärmstorleken som används
+                              const width = ctx.chart.width;
+                              if (width < 400) return { size: 12 };
+                              return { size: 14 }
+                          }, // Funktion för att göra bindestreck på labels som är längre än 17 bokstäver
                       }
                   }
               }
