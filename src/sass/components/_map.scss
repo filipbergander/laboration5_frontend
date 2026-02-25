@@ -27,20 +27,25 @@
         margin: 0 auto;
     }
     
-    .frame {
-        margin-top: 1rem;
-        border-radius: 8px;
-        border: 2px solid $light-color;
-    }
-    
     #map {
         height: 400px;
         width: 550px;
         margin-top: 1rem;
+        margin: 0 auto;
     }
     
     @media (max-width: 550px) {
-        .frame {
-            width: 95%;
+        .map-area {
+            min-width: 200px;
+        }
+        #map {
+            width: 350px;
+            height: 300px;
+        }
+    }
+    
+    @media (max-width: 350px) {
+        #map {
+            width: 100%;
         }
     }
